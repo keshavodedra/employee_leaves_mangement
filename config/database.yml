@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: keshav-ubuntu
+  password: keshav-ubuntu
+
+development:
+  <<: *default
+  database: ical_development
+
+test:
+  <<: *default
+  database: ical_test
+
+production:
+  <<: *default
+  database: ical_production
