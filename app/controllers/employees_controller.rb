@@ -11,12 +11,13 @@ class EmployeesController < ApplicationController
     end
   end
 
+  # Used Service Object Design Pattern to generate Calnder Events
   def ics_export
     @events = current_company.get_vacations
-    cal = Employee.generate_ical(@events)
+    cal_events = CalenderService.new(@events).get_calender_events
     respond_to do |format|
       format.html
-      format.ics { send_data(cal, :filename=>"cal.ics", :disposition=>"inline; filename=cal.ics", :type=>"text/calendar")}
+      format.ics { send_data(cal_events, :filename=>"cal.ics", :disposition=>"inline; filename=cal.ics", :type=>"text/calendar")}
      end
   end
 
