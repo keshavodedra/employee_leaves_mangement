@@ -5,8 +5,9 @@ class CalenderService
     @events = params
   end
 
-  def get_calender_events
+  def calender_events
     return unless events
+
     cal = Icalendar::Calendar.new
     events.each do |myevent|
       event = Icalendar::Event.new

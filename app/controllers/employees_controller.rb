@@ -13,22 +13,20 @@ class EmployeesController < ApplicationController
 
   # Used Service Object Design Pattern to generate Calnder Events
   def ics_export
-    @events = current_company.get_vacations
-    cal_events = CalenderService.new(@events).get_calender_events
+    @events = current_company.vacations
+    cal_events = CalenderService.new(@events).calender_events
     respond_to do |format|
       format.html
-      format.ics { send_data(cal_events, :filename=>"cal.ics", :disposition=>"inline; filename=cal.ics", :type=>"text/calendar")}
-     end
-  end
-
-
-  private 
-  
-  def set_employee
-    if(params[:userId].present?)
-      @employee = Employee.find_by_id(params[:userId])
-      render json: {message: 'User not found'}, status: :not_found if @employee.nil?
+      format.ics { send_data(cal_events, filename: 'cal.ics', disposition: 'inline; filename=cal.ics', type: 'text/calendar') }
     end
   end
 
+  private
+
+  def set_employee
+    if params[:userId].present?
+      @employee = Employee.find_by_id(params[:userId])
+      render json: { message: 'User not found' }, status: :not_found if @employee.nil?
+    end
+  end
 end

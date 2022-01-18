@@ -1,5 +1,5 @@
 class EmployeeSerializer < ActiveModel::Serializer
-	 attributes :id, :name
+  attributes :id, :name
 
-	 has_many :vacations
+  has_many :vacations
 end
